@@ -5,13 +5,13 @@ from gne.gne_flux import gne_flux
 from gne.gne_plots import make_testplots
 import os, h5py
 
-verbose = True
+verbose = False
 ### RUN the code with the given parameters and/or make plots
 testing = False            # If True: use only the first 50 elements
 get_emission_lines = True # Obtain nebular emission lines
-get_attenuation = False
-get_flux = False
-plot_tests = False
+get_attenuation = True
+get_flux = True
+plot_tests = True
 
 # Calculate emission from AGNs: AGN = True
 AGN = True
