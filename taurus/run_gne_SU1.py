@@ -3,22 +3,22 @@ from gne.gne import gne
 from gne.gne_att import gne_att
 from gne.gne_flux import gne_flux
 from gne.gne_plots import make_testplots
-import h5py
+import os, h5py
 
 verbose = True
 ### RUN the code with the given parameters and/or make plots
 testing = False            # If True: use only the first 50 elements
-get_emission_lines = False # Obtain nebular emission lines
+get_emission_lines = True # Obtain nebular emission lines
 get_attenuation = False
 get_flux = False
-plot_tests = True
+plot_tests = False
 
 # Calculate emission from AGNs: AGN = True
 AGN = True
 
 ###############################################################
 ### OUTPUT FILES: Default output path is output/
-outpath = '/home2/vgonzalez/Data/Galform/SU1/'
+outpath = '/home2/vgonzalez/Data/Galform/SU1'
 
 val = 45.5
 
@@ -32,7 +32,7 @@ out_endf = 'lines_lbol'+str(val)
 # Star formation rate (SFR) or 12+log(O/H)
 # Mean metallicity of the cold gas (Z).
 subvols = 2
-root = outpath+'iz87/ivol'
+root = os.path.join(outpath,'iz87','ivol')
 endf   = 'gne_input.hdf5'
 
 ### INPUT FORMAT ('txt' for text files; 'hdf5' for HDF5 files)
