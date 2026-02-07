@@ -248,7 +248,11 @@ maxcuts = [None]
 ##################################################################
 #############    Run the code and/or make plots   ################
 ##################################################################
-for ivol in range(subvols):
+list_subvols = subvols
+if isinstance(subvols, int):
+    list_subvols = list(range(subvols))
+
+for ivol in list_subvols:
     infile = root+str(ivol)+'/'+endf
 
     infile_z0 = root_z0
