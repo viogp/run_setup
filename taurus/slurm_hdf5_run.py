@@ -3,15 +3,11 @@ import os
 import gne.gne_slurm as su
 
 verbose = True
-nvol = 2
+nvol = 64
 
-submit_jobs = False  # False to only generate scripts
+submit_jobs = True  # False to only generate scripts
 check_all_jobs = True
 clean = False
-
-# Parameter file to use as base
-# The catalogue path, subvols and snapshot will be modified
-param_file = os.path.join(os.getcwd(),'run_gne_SU1.py')
 
 # Optional: user-defined suffix for job names
 # If None, suffix is derived from cutcols/mincuts/maxcuts in param_file
@@ -19,18 +15,41 @@ job_suffix = None
 
 # Galform in taurus
 hpc = 'taurus'
-sam = 'Galform'
-taurus_galform = [
-    #('SU1', [109, 104, 98, 90, 87, 128, 96, 78]),
-    ('SU1', [87, 128]),
-    #('SU1', [109, 104, 98, 90, 96, 78]),
-    #('SU2', [109, 104, 98, 90, 87]),
-    #('UNIT1GPC_fnl0', [98, 109, 87, 90, 104]),
-    #('UNIT1GPC_fnl100', [108, 103, 97, 89, 86]),
-]
+sam = 'Shark'
+
+simulations = {
+    "Galform": {
+        "script": "run_gne_SU1.py",
+        "runs": [
+            ('SU1', [109, 104, 98, 90, 87, 128, 96, 78]),
+            ('SU1', [128, 90, 87, 96, 78]),
+            ('SU2', [90]),
+            ('UNIT1GPC_fnl0', [128, 90]),
+            ('UNIT1GPC_fnl100', [127, 89]),
+            #('SU1', [109, 104, 98, 90, 96, 78]),
+            #('SU2', [109, 104, 98, 90, 87]),
+            #('UNIT1GPC_fnl0', [98, 109, 87, 90, 104]),
+            #('UNIT1GPC_fnl100', [108, 103, 97, 89, 86]),
+        ]
+    },
+    "Shark": {
+        "script": "run_gne_shark.py",
+        "runs": [
+            ('SU1', [128, 90, 87, 96, 78]),
+            ('SU2', [128, 90]),
+            ('UNIT1GPC_fnl0', [128, 90]),
+            ('UNIT1GPC_fnl100', [127, 89]),
+        ]
+    }
+}
+
+
+# Parameter file to use as base
+# The catalogue path, subvols and snapshot will be modified
+param_file = os.path.join(os.getcwd(),simulations[sam]["script"])
 
 # Select which runs to process
-runs = taurus_galform
+runs = simulations[sam]["runs"]
 if hpc=='taurus':
     root = '/home2/vgonzalez/Data' 
 

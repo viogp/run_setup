@@ -18,7 +18,7 @@ AGN = True
 
 ###############################################################
 ### OUTPUT FILES: Default output path is output/
-outpath = '/home2/vgonzalez/Data/Galform/SU1'
+outpath = '/home2/vgonzalez/Data/Shark/SU1'
 
 val = None
 
@@ -52,7 +52,7 @@ units_Gyr=True
 # 0: input units [L]=erg/s  (default);
 # 1: input units [L]=1e40 h^-2 erg/s
 # 2: input units [L]=1e40 erg/s
-units_L=1
+units_L=2
 
 ####################################################
 ############  Emission from SF regions #############
@@ -74,8 +74,8 @@ photmod_sfr='gutkin16'
 # Each list correspond to a different component: 
 # m_sfr_z = [[mstar_disk,SFR_disk,Zgas_disk],[mstar_stb,SFR_stb,Zgas_stb]]
 # For a single component: m_sfr_z = [[Mstellar,SFR,Zgas]]
-m_sfr_z = [['data/mstars_disk','data/mstardot','data/Zgas_disc'],
-           ['data/mstars_bulge','data/mstardot_burst','data/Zgas_bst']]
+m_sfr_z = [['data/mstars_disk','data/sfr_disk','data/Zgas_disc'],
+           ['data/mstars_bulge','data/sfr_burst','data/Zgas_bst']]
 
 # mtot2mdisk is True if the stellar mass of discs is calculated 
 # from the total and buldge values (False by default)
@@ -151,7 +151,7 @@ model_spec_agn = 'feltre16'
 #            the BH mass, Mbh,
 #            and, as an optional input, the BH spin, Mspin. 
 #            Lagn_params=[Mbulge,rbulge,vbulge,Mhot,Mbh,(Mspin)]
-Lagn_inputs = 'Lagn'; Lagn_params=['data/Lbol_AGN','data/mstars_bulge']
+Lagn_inputs = 'Lagn'; Lagn_params=['data/bolometric_luminosity_agn','data/mstars_bulge']
 
 ###################################################################
 ########  Filling factor and Cardelli's law parameters  ###########
@@ -165,8 +165,8 @@ Lagn_inputs = 'Lagn'; Lagn_params=['data/Lbol_AGN','data/mstars_bulge']
 # Each list can correspond to a different component:
 # mgas_r = None
 # mgas_r = [[mgas_comp1,R_comp1],...]
-mgas_r = [['data/mcold','data/rdisk'],
-          ['data/mcold_burst','data/rbulge']]
+mgas_r = [['data/mgas_disk','data/rgas_disk'],
+          ['data/mgas_bulge','data/rgas_bulge']]
 
 # If mgas_r given, the type of component needs to be specified
 # mgasr_type = 'disc', 'bulge' or None
@@ -223,14 +223,11 @@ root_z0 = None
 # WARNING: magK and magR are the dataset names used
 #          for selections in plots (optional)
 extra_params_names = ['type','mh','xgal','ygal','zgal',
-                      'vxgal','vygal','vzgal',
-                      'magK','magR','M_SMBH']
-extra_params = ['data/type','data/mhhalo',
-                'data/xgal','data/ygal','data/zgal',
-                'data/vxgal','data/vygal','data/vzgal',
-                'data/mag_UKIRT-K_o_tot_ext',
-                'data/mag_SDSSz0.1-r_o_tot_ext',
-                'data/M_SMBH']
+                      'vxgal','vygal','vzgal','M_SMBH']
+extra_params = ['data/type','data/mvir_hosthalo',
+                'data/position_x','data/position_y','data/position_z',
+                'data/velocity_x','data/velocity_y','data/velocity_z',
+                'data/m_bh']
 if attmod == 'ratios':
     for line in att_config:
         extra_params_names.append('ratio_'+line)
